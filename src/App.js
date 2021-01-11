@@ -4,7 +4,7 @@ import { QuestionCircleOutlined, ArrowLeftOutlined } from '@ant-design/icons'
 import SelectAddress from './components/SelectAddress'
 import SavedAddresses from './components/SavedAddresses'
 import { useSelector } from 'react-redux'
-import Editor from './components/Editor'
+import Sizer from './components/Sizer'
 import ru from 'antd/lib/locale/ru_RU'
 
 const App = () => {
@@ -12,7 +12,8 @@ const App = () => {
     let page
 
     if (edit) {
-        page = <Editor data={edit} />
+
+        page = <Sizer data={edit} />
     } else {
         page = (<>{access&&<div className="box" style={{paddingBottom: '12px'}}><Alert showIcon type="info" message="Внимание" description={access} /></div>}
         { saved && <SavedAddresses saved={saved} />}
