@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Alert, Spin, Card, Table, Modal, Button, Space, Input, InputNumber, Popconfirm, Typography } from 'antd'
+import { Alert, Spin, Card, Table, Modal, Button, Space, Input, InputNumber, Popconfirm, Typography, Spin } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import { getHistory, setEdit, setHistory, setMeter, sendFeed } from '../store'
 import MetersHistoryMobile from './MetersHistoryMobile'
@@ -28,7 +28,7 @@ const Confirm = ({value, token, id}) => {
 
 const EditorMobile = ({data}) => {
     const dispatch = useDispatch()
-    const history = useSelector(state=>state.history)
+    const {history, saving} = useSelector(state=>({history: state.history, saving: state.saving}))
     const [visible, setVisible] = useState(false)
     const [feedVisible, setFeedVisible] = useState(false)
     const [feedText, setFeedText] = useState('')
@@ -73,7 +73,11 @@ const EditorMobile = ({data}) => {
                     value = "..."
                 }
                 if (data.access) {
-                    value = <Confirm value={rec.new_value} id={rec.id} token={data.token} />
+                    if (saving) {
+                        value = <Spin />
+                    } else {
+                        value = <Confirm value={rec.new_value} id={rec.id} token={data.token} />
+                    }
                 }
                 switch (rec.service) {
                     case 1: service = 'Холодная вода'; break;

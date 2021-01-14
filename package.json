@@ -29,8 +29,8 @@
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
-    "build:dev": "webpack --config webpack/dev.js",
-    "build:prod": "webpack --config webpack/prod.js",
+    "build:dev": "webpack --progress --config webpack/dev.js",
+    "build:prod": "webpack --progress --config webpack/prod.js",
     "dev": "webpack --watch --progress --config webpack/dev.js"
   }
 }

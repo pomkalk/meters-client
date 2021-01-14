@@ -15,6 +15,7 @@ export const SET_EDIT = 'SET_EDIT'
 export const SET_HISTORY = 'SET_HISTORY'
 export const SET_CHANGE = 'SET_CHANGE'
 export const UPDATE_METER = 'UPDATE_METER'
+export const SET_SAVING = 'SET_SAVING'
 
 const serverRequestError = {
     title: 'Ошибка',
@@ -37,6 +38,7 @@ const initState = {
         loading: false
     },
     pending: false,
+    saving: null,
     edit: null,
     history: null,
     change: {
@@ -56,6 +58,7 @@ const reducer = (state = initState, action) => {
         case SET_STREETS: return {...state, streets: { data: action.data, loading: action.loading }}
         case SET_BUILDINGS: return {...state, buildings: { data: action.data, loading: action.loading }}
         case SET_APARTMENTS: return {...state, apartments: { data: action.data, loading: action.loading }}
+        case SET_SAVING: return {...state, saving: action.data}
         case ADD_SAVED: 
             meters = state.saved || []
             if (meters.findIndex(x => x.address === action.data.address)>=0) {
@@ -94,6 +97,7 @@ export const setPending = (data) => ({ type: SET_PENDING, data})
 export const setStreets = (data, loading=false) => ({ type: SET_STREETS, data, loading})
 export const setBuildings = (data, loading=false) => ({ type: SET_BUILDINGS, data, loading})
 export const setApartments = (data, loading=false) => ({ type: SET_APARTMENTS, data, loading})
+export const setSaving = (data) => ({type: SET_SAVING, data})
 
 export const getAccess = () => (dispatch) => {
     axios.get('/api/access').then(({data}) => {
@@ -172,6 +176,7 @@ export const getHistory = (token, meter_id) => (dispatch) => {
 }
 
 export const setMeter = (token, meter_id, value) => (dispatch) => {
+    dispatch(setSaving(meter_id))
     axios.post('/api/save', {token, meter_id, value}).then(({data}) => {
         if (data.error) {
             Modal.error({
@@ -188,8 +193,10 @@ export const setMeter = (token, meter_id, value) => (dispatch) => {
                 }
             })
         }
+        dispatch(setSaving(null))
     }).catch((err) => {
         Modal.error(serverRequestError)
+        dispatch(setSaving(null))
     })
 }
 

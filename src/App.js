@@ -29,7 +29,7 @@ const App = () => {
         <div className="page">
             <div className="buttons">
                 <Space>
-                    <Button icon={<QuestionCircleOutlined />}>Справка</Button>
+                    {/* <Button icon={<QuestionCircleOutlined />}>Справка</Button> */}
                     <Button href="http://uez-lk.ru" icon={<ArrowLeftOutlined />}>Вернуться на сайт</Button>
                 </Space>
             </div>

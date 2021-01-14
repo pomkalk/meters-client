@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Alert, Spin, Card, Table, Modal, Button, Form, Space, Input, InputNumber, Popconfirm, Typography } from 'antd'
+import { Alert, Spin, Card, Table, Modal, Button, Form, Space, Input, InputNumber, Popconfirm, Typography, Spin } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import { getHistory, setChange, setEdit, setHistory, setMeter, sendFeed } from '../store'
 import MetersHistory from './MetersHistory'
@@ -28,7 +28,7 @@ const Confirm = ({value, token, id}) => {
 
 const Editor = ({data}) => {
     const dispatch = useDispatch()
-    const history = useSelector(state=>state.history)
+    const {history, saving} = useSelector(state=>({history: state.history, saving: state.saving}))
     const [visible, setVisible] = useState(false)
     const [feedVisible, setFeedVisible] = useState(false)
     const [feedText, setFeedText] = useState('')
@@ -86,6 +86,9 @@ const Editor = ({data}) => {
             render: (text, rec) => {
                 if (!data.access) {
                     return text
+                }
+                if (saving) {
+                    return <Spin />
                 }
                 return <Confirm value={rec.new_value} id={rec.id} token={data.token} />
             }
