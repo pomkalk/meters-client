@@ -1,30 +1,11 @@
-import React, { useState, useEffect } from 'react'
-import { Alert, Spin, Card, Table, Modal, Button, Space, Input, InputNumber, Popconfirm, Typography, Spin } from 'antd'
+import React, { useState } from 'react'
+import { Alert, Card, Table, Modal, Button, Space, Input, Typography, Spin } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
-import { getHistory, setEdit, setHistory, setMeter, sendFeed } from '../store'
+import { getHistory, setEdit, setHistory, sendFeed } from '../store'
 import MetersHistoryMobile from './MetersHistoryMobile'
-import EditForm from './EditForm'
+import Confirm from './Confirm'
 
-const Confirm = ({value, token, id}) => {
-    const dispatch = useDispatch()
-    const [v, setV] = useState(value)
-    const text = value ? value : 'Передать'
 
-    useEffect(()=>{
-        setV(value)
-    }, [value])
-
-    const onConfirm = () => {
-        dispatch(setMeter(token, id, v))
-        setV(value)
-    }
-
-    const onCancel = () => {
-        setV(value)
-    }
-
-    return <Popconfirm icon={null} cancelText="Отмена" okText="Сохранить" onCancel={onCancel} onConfirm={onConfirm} title={<InputNumber style={{width: '100%'}} value={v} onChange={(e)=>setV(e)} />}><a>{text}</a></Popconfirm>
-}
 
 const EditorMobile = ({data}) => {
     const dispatch = useDispatch()
@@ -58,7 +39,7 @@ const EditorMobile = ({data}) => {
     const title = (<Space direction="vertical">
         <span>Счетчик</span>
         <span>Дата последних показаний</span>
-        <span>Последние показание</span>
+        <span>Последнее показание</span>
         <span>Показания</span>
     </Space>)
 
@@ -73,7 +54,7 @@ const EditorMobile = ({data}) => {
                     value = "..."
                 }
                 if (data.access) {
-                    if (saving) {
+                    if (saving===rec.id) {
                         value = <Spin />
                     } else {
                         value = <Confirm value={rec.new_value} id={rec.id} token={data.token} />
@@ -113,9 +94,11 @@ const EditorMobile = ({data}) => {
     }
 
     const sendFeeds = () => {
-        dispatch(sendFeed(data.token, feedText))
-        setFeedVisible(false)
-        setFeedText('')
+        if (feedText.trim().length>0) {
+            dispatch(sendFeed(data.token, feedText))
+            setFeedVisible(false)
+            setFeedText('')
+        }
     }
 
     return (<>
@@ -130,7 +113,7 @@ const EditorMobile = ({data}) => {
             </Modal>
         </div>
         {data.access&&<div style={{paddingTop: '12px'}}><Button onClick={()=>setFeedVisible(true)}>Оставить отзыв</Button>
-            <Modal title="Оставить отзыв" visible={feedVisible} onCancel={hideFeeds} onOk={sendFeeds}>
+            <Modal title="Оставить отзыв" visible={feedVisible} onCancel={hideFeeds} onOk={sendFeeds} okText="Отправить отзыв">
                 <div style={{display: 'flex', flexDirection: 'column'}}>
                     <Typography.Title level={5}>
                         Адрес

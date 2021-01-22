@@ -159,6 +159,7 @@ export const getOpen = (params) => (dispatch, getState) => {
             dispatch(addSaved(data))
         }
         dispatch(getMeters(data.token))
+        dispatch(setPending(false))
     }).catch((err) => {
         Modal.error(serverRequestError)
         dispatch(setPending(false))
