@@ -1,18 +1,18 @@
-import React, { useState } from 'react'
-import { Popconfirm, Input } from 'antd'
+import React, { useState, useEffect } from 'react'
+import { Popconfirm, Input, Button, Spin } from 'antd'
 import { useDispatch } from 'react-redux'
 import { setMeter } from '../store'
 
-const Confirm = ({value, lastValue, token, id}) => {
+const Confirm = ({value, lastValue, token, id, loading}) => {
     const dispatch = useDispatch()
     let last_value = parseFloat(lastValue)
 
     const [v, setV] = useState(value)
     const text = value ? value : 'Передать'
 
-    // useEffect(()=>{
-    //     setV(value)
-    // }, [value])
+    useEffect(()=>{
+        setV(value)
+    }, [value])
 
     const onConfirm = () => {
         dispatch(setMeter(token, id, v===''?null:v))
@@ -56,9 +56,14 @@ const Confirm = ({value, lastValue, token, id}) => {
         </div>
     )
 
+    if (loading) {
+        return <Button type="default" block size="small"><Spin /></Button>
+    }
+
     return (
         <Popconfirm icon={null} cancelText="Отмена" okText="Сохранить" onCancel={onCancel} onConfirm={onConfirm} title={frm}>
-            <a>{text}</a>
+            <Button type="default" block size="small">{text}</Button>
+            
         </Popconfirm>
     )
 }

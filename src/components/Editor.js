@@ -66,20 +66,20 @@ const Editor = ({data}) => {
                 if (!data.access) {
                     return text
                 }
-                if (saving===rec.id) {
-                    return <Spin />
-                }
-                return <Confirm value={rec.new_value} lastValue={rec.last_value} id={rec.id} token={data.token} />
+                // if (saving===rec.id) {
+                //     return <Spin />
+                // }
+                return <Confirm loading={saving===rec.id} value={rec.new_value} lastValue={rec.last_value} id={rec.id} token={data.token} />
             }
         },
         {
             title: '',
             key: 'action',
             render: (text, rec) => {
-                return <a onClick={()=>{
+                return <Button type="default" block size="small" onClick={()=>{
                     dispatch(getHistory(data.token, rec.id))
                     setVisible(true)
-                }}>История</a>
+                }}>История</Button>
             }
         }
     ]

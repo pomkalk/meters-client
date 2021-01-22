@@ -54,11 +54,7 @@ const EditorMobile = ({data}) => {
                     value = "..."
                 }
                 if (data.access) {
-                    if (saving===rec.id) {
-                        value = <Spin />
-                    } else {
-                        value = <Confirm value={rec.new_value} id={rec.id} token={data.token} />
-                    }
+                    value = <Confirm loading={saving===rec.id} value={rec.new_value} id={rec.id} token={data.token} />
                 }
                 switch (rec.service) {
                     case 1: service = 'Холодная вода'; break;
@@ -73,10 +69,10 @@ const EditorMobile = ({data}) => {
                     <span>{`${getMonthName(rec.last_month)} ${rec.last_year}`}</span>
                     <span>{rec.last_value}</span>
                     <span>{value}</span>
-                    <span><a onClick={()=>{
+                    <span><Button type="default" block size="small" onClick={()=>{
                     dispatch(getHistory(data.token, rec.id))
                     setVisible(true)
-                }}>История</a></span>
+                }}>История</Button></span>
                 </Space>)
             }
         },
