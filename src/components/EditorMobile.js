@@ -54,7 +54,7 @@ const EditorMobile = ({data}) => {
                     value = "..."
                 }
                 if (data.access) {
-                    value = <Confirm loading={saving===rec.id} value={rec.new_value} id={rec.id} token={data.token} />
+                    value = <Confirm loading={saving===rec.id} value={rec.new_value} lastValue={rec.last_value} id={rec.id} token={data.token} />
                 }
                 switch (rec.service) {
                     case 1: service = 'Холодная вода'; break;
