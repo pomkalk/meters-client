@@ -39,7 +39,7 @@ const EditorMobile = ({data}) => {
     const title = (<Space direction="vertical">
         <span>Счетчик</span>
         <span>Дата последних показаний</span>
-        <span>Последнее показание</span>
+        <span>Последнее показанее</span>
         <span>Показания</span>
     </Space>)
 

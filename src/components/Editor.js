@@ -56,7 +56,7 @@ const Editor = ({data}) => {
             }
         },
         {
-            title: 'Последнее показание',
+            title: 'Последнее показанее',
             dataIndex: 'last_value'
         },
         {

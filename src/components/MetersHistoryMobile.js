@@ -49,7 +49,7 @@ const MetersHistoryMobile = ({data}) => {
                 return (<Space direction="vertical">
                     <span>Месяц: {getMonthName(rec.month)} {rec.year}</span>
                     <span>Дата последних показаний: {getMonthName(rec.last_month)} {rec.last_year}</span>
-                    <span>Последние показание: {rec.last_value}</span>
+                    <span>Последние показанее: {rec.last_value}</span>
                     <span>Показания: {rec.new_value}</span>
                     <span>Дата: {date}</span>
                 </Space>)

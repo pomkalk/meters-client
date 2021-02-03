@@ -45,7 +45,7 @@ const MetersHistory = ({data}) => {
             }
         },
         {
-            title: 'Последние показание',
+            title: 'Последние показанее',
             dataIndex: 'last_value'
         },
         {
