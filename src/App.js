@@ -1,6 +1,6 @@
 import React from 'react'
-import { Button, Typography, Space, Alert, Card, ConfigProvider } from 'antd'
-import { QuestionCircleOutlined, ArrowLeftOutlined } from '@ant-design/icons'
+import { Button, Typography, Space, Alert, ConfigProvider } from 'antd'
+import { ArrowLeftOutlined } from '@ant-design/icons'
 import SelectAddress from './components/SelectAddress'
 import SavedAddresses from './components/SavedAddresses'
 import { useSelector } from 'react-redux'
@@ -12,8 +12,8 @@ const App = () => {
     let page
 
     if (edit) {
-
         page = <Sizer data={edit} />
+
     } else {
         page = (<>{access&&<div className="box" style={{paddingBottom: '12px'}}><Alert showIcon type="info" message="Внимание" description={access} /></div>}
         { saved && <SavedAddresses saved={saved} />}

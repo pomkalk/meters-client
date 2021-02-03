@@ -1,6 +1,5 @@
 import React from 'react'
-import Logo from './Logo'
-import { Button, Space, Row, Col, PageHeader } from 'antd'
+import { Button, PageHeader } from 'antd'
 
 const Navbar = () => {
     return (<div className="navbar">
