@@ -6,6 +6,7 @@ import SavedAddresses from './components/SavedAddresses'
 import { useSelector } from 'react-redux'
 import Sizer from './components/Sizer'
 import ru from 'antd/lib/locale/ru_RU'
+import GoogleButton from './components/GoogleButton'
 
 const App = () => {
     const { access, saved, edit } = useSelector(state=>({access: state.access, saved: state.saved, edit: state.edit }))
@@ -30,6 +31,7 @@ const App = () => {
             <div className="buttons">
                 <Space>
                     {/* <Button icon={<QuestionCircleOutlined />}>Справка</Button> */}
+                    <GoogleButton />
                     <Button href="http://uez-lk.ru" icon={<ArrowLeftOutlined />}>Вернуться на сайт</Button>
                 </Space>
             </div>
